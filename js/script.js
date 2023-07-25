@@ -1,64 +1,96 @@
-// Load your images on page-load
+
 function preloader() {
-    const imagesList = [
-        "./img/img-1.jpg",
-        "./img/img-2.jpg",
-        "./img/img-3.jpg"
+    const picturesList = [
+        "./img/solution1.png",
+        "./img/solution2.png",
+        "./img/solution3.png"
     ];
-    const images = [];
-    for (let i = 0; i < imagesList.length; i++) {
-        images[i] = new Image();
-        images[i].src = imagesList[i];
+    const pictures = [];
+    for (let i = 0; i < picturesList.length; i++) {
+        pictures[i] = new Image();
+        pictures[i].src = picturesList[i];
     }
 
-    // Images ready to be used:
-    console.log(`Preloaded images:\n\t${images[0].src}\n\t${images[1].src}\n\t${images[2].src}`);
+  
+    console.log(`Preloaded pictures:\n\t${pictures[0].src}\n\t${pictures[1].src}\n\t${pictures[2].src}`);
 };
 window.addEventListener("load", preloader);
 
-// Your resource-object with dynamic content
-const resource = {
+
+let urls = document.querySelectorAll('button');
+
+
+let data = {
     solution1: {
-        headingContent: "Solution 1",
-        bodyText: "Harnessing the vast power of the oceans, ocean energy represents a promising renewable energy solution with tremendous potential. Our innovative technology, OceanFlow, utilizes the natural ebb and flow of tides to generate electricity. The system consists of underwater turbines strategically placed along coastal areas, where the tidal currents are strong. As the tides rise and fall, the turbines spin, converting kinetic energy into clean electrical power. OceanFlow boasts a low environmental impact, as it doesn't require any emissions or fuel consumption. With over 70% of the Earth's surface covered by oceans, this untapped energy source can play a crucial role in reducing our dependence on fossil fuels and combating climate change.",
-        imgUrl: "./imgs/solution1.png",
-        imgAlt: "Solution 1 Image"
+        headingData: 'solution1',
+        bodyText: 'Government help is one of the best methods to make green energy accessible for the average individual. To promote the use of sustainable energy technologies, governments can offer a variety of incentives and subsidies. For the installation of solar panels, wind turbines, energy-efficient appliances, or electric vehicles, these incentives may include tax credits, grants, or refunds. Government initiatives can also aid in lowering the initial cost necessary to switch to renewable energy, making it more accessible to a wider spectrum of individuals.',
+        imgURL: './imgs/solution1.png',
+        imgALT: 'solution1'
     },
     solution2: {
-        headingContent: "Solution 2",
-        bodyText: "Imagine generating electricity from the footsteps of pedestrians on busy city streets or the vibrations of moving vehicles on highways. Our revolutionary solution, PiezoCharge, does just that. Piezoelectric materials have the unique property of producing an electric charge when subjected to mechanical stress or pressure. By embedding these materials in high-traffic areas, such as sidewalks or roads, PiezoCharge captures the energy created by human movement and vehicular traffic. This energy is then converted into usable electricity to power streetlights, traffic signals, or even feed into the grid. Embracing this innovative technology not only reduces our carbon footprint but also transforms bustling urban areas into vibrant hubs of renewable energy production.",
-        imgUrl: "./imgs/solution2.png",
-        imgAlt: "Solution 2 Image"
+        headingData: 'solution2',
+        bodyText: 'Community solar initiatives let several people share the advantages of a single solar energy system. Participants can sign up for a shared solar farm or array in their neighbourhood as an alternative to installing solar panels on their own properties. With this strategy, clean energy is made available to those who might not have adequate rooftops or enough money for individual installations. It also does away with the requirement for upfront payments. A participants portion of the solar energy produced by the community system is normally credited against their electricity costs.',
+        imgURL: './imgs/solution2.png',
+        imgALT: 'solution2'
     },
     solution3: {
-        headingContent: "Solution 3",
-        bodyText:"Traditional solar panels have undoubtedly revolutionized the renewable energy landscape, but what if we could integrate solar power into everyday surfaces effortlessly? Introducing SolarPaint, a game-changing solution that allows us to turn ordinary structures, like buildings and even vehicles, into solar energy harvesters. SolarPaint comprises a special blend of solar-absorbing nanoparticles suspended in a paint-like medium. When applied to surfaces exposed to sunlight, these nanoparticles capture solar energy and convert it into electricity. The possibilities are endless – imagine entire skyscrapers generating clean power, or electric vehicles recharging while sitting idle under the sun. SolarPaint represents a significant step towards a more aesthetically pleasing and accessible renewable energy future.",
-        imgUrl: "./imgs/solution3.png",
-        imgAlt: "Solution 3 Image"
+        headingData: 'solution3',
+        bodyText: 'Promoting energy effsolution3is crucial to lowering the cost of clean energy. Many consumers are unaware of the substantial cost reductions that can be achieved by making minor modifications to their energy use habits. People can lower their overall energy usage and possibly use the savings to fund renewable energy sources by giving information and resources on energy-saving techniques. Providing accessible financing options, such as low-interest loans or pay-as-you-save plans, can additionally assist people in paying for the upfront costs of clean energy installations while recouping their investment from the money they save on energy prices.',
+        imgURL: './imgs/solution3.png',
+        imgALT: 'solution3'
     }
 };
 
-const buttonContainer = document.querySelector(".button-container");
-const solutionContent = document.querySelector(".solution-content");
+
+let buttonData = document.querySelector('.content');
+
+
+
+buttonData.innerHTML = 
+       `<h1 class="contentHead">${data.solution1.headingData}</h1>
+       <img src="${data.solution1.imgURL}" alt="${data.solution1.imgALT}">
+       <p>${data.solution1.bodyText}</p>`;
+
+
 
 function handleSelection(event) {
-    // Remove active-button class from all buttons
-    const buttons = buttonContainer.querySelectorAll("button");
-    buttons.forEach(button => button.classList.remove("active-button"));
 
-    // Set active-button class to the clicked button
-    event.target.classList.add("active-button");
+  
+    let selectedItem = event.target.parentElement;
 
-    // Get the content based on the clicked button and update the solution content
-    const solutionKey = event.target.textContent.toLowerCase();
-    const content = resource[solutionKey];
-    const html = `
-        <h2>${content.headingContent}</h2>
-        <img src="${content.imgUrl}" alt="${content.imgAlt}">
-        <p>${content.bodyText}</p>
-    `;
-    solutionContent.innerHTML = html;
+   
+
+    for (let i = 0; i < urls.length; i++) {
+        if (urls[i].hasAttribute('id')) {
+            urls[i].removeAttribute('id')
+        }
+    }
+
+
+
+    selectedItem.setAttribute('id', 'active');
+
+    
+    console.log(event.target.classList);
+    let buttonClicked = event.target.classList;
+    
+    if (urls[0].hasAttribute('id')) {
+        buttonData.innerHTML = `<h1 class="contentHead">${data.solution1.headingData}</h1>
+           <img src="${data.solution1.imgURL}" alt="${data.solution1.imgALT}">
+           <p>${data.solution1.bodyText}</p>`;
+    } else if (urls[1].hasAttribute('id')) {
+        buttonData.innerHTML = `<h1 class="contentHead">${data.solution2.headingData}</h1>
+           <img src="${data.solution2.imgURL}" alt="${data.solution2.imgALT}">
+           <p>${data.solution2.bodyText}</p>`;
+    } else if (urls[2].hasAttribute('id')) {
+        buttonData.innerHTML = `<h1 class="contentHead">${data.solution3.headingData}</h1>
+           <img src="${data.solution3.imgURL}" alt="${data.solution3.imgALT}">
+           <p>${data.solution3.bodyText}</p>`;
+    } 
+
+  
 }
 
-// Register all buttons to the click event
-buttonContainer.addEventListener("click", handleSelection);
+for (let i = 0; i < urls.length; i++) {
+   urls[i].addEventListener('click', handleSelection);
+}
